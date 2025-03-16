@@ -2,7 +2,9 @@ const mongoose = require('mongoose');
 require('dotenv').config();  // Load environment variables
 const express = require('express');
 const cors = require('cors');
+const twilio = require('twilio');  // Import Twilio
 const { loginUser, signupUser } = require('./routes/auth');
+const Appointment = require('./models/appointmentModel'); // Import the Appointment model
 
 const app = express();
 
@@ -15,7 +17,6 @@ mongoose.set('bufferCommands', false);
 
 async function connectToDatabase() {
   try {
-    // No need for useNewUrlParser and useUnifiedTopology anymore in Mongoose 6 and beyond
     await mongoose.connect(process.env.MONGO_URI);
     console.log('MongoDB connected');
   } catch (err) {
@@ -26,6 +27,7 @@ async function connectToDatabase() {
 
 // Initialize connection before setting up the routes
 connectToDatabase().then(() => {
+  // Authentication Routes
   // Login Route
   app.post('/login', async (req, res) => {
     const { email, password } = req.body;
@@ -49,6 +51,41 @@ connectToDatabase().then(() => {
       res.status(500).json({ message: 'Server error during signup' });
     }
   });
+
+  //appointment route
+  app.post('/submit-appointment', async (req, res) => {
+    const { name, phone, service, date, time } = req.body; // Removed 'email' from here
+  
+    try {
+      // Save the appointment to the database
+      const newAppointment = new Appointment({ name, phone, service, date, time });
+      await newAppointment.save();
+  
+      // Send SMS using Twilio
+      const twilioClient = twilio(process.env.TWILIO_SID, process.env.TWILIO_AUTH_TOKEN);
+  
+      const smsMessage = `Hi ${name}, your ${service} appointment is confirmed for ${date} at ${time}. See you soon!`;
+  
+      await twilioClient.messages.create({
+        body: smsMessage,
+        messagingServiceSid: process.env.TWILIO_MESSAGING_SERVICE_SID,
+        to: phone // Ensure the phone number includes the country code (e.g., +1234567890)
+      });
+  
+      console.log('SMS sent successfully!');
+  
+      // Respond to the client
+      res.status(200).json({
+        message: 'Appointment successfully booked and SMS sent!',
+        appointment: newAppointment
+      });
+  
+    } catch (err) {
+      console.error('Error booking appointment:', err);
+      res.status(500).json({ message: 'Error booking the appointment' });
+    }
+  });
+  
 
   // Start server
   const PORT = process.env.PORT || 5000;
