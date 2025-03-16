@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barber Appointment Booking</title>
+  <link rel="stylesheet" href="./assets/css/appoint.css">
+  <link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
+</head>
+<body>
+  <div class="container">
+    <h1>Book Your Appointment</h1>
+    <form id="appointmentForm" onsubmit="return validateForm()">
+      <label for="fullName">Full Name</label>
+      <input type="text" id="fullName" name="fullName" placeholder="Your full name" required>
+
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" name="phone" placeholder="Your phone number" required>
+
+      <label for="appointmentDate">Choose Date</label>
+      <input type="date" id="appointmentDate" name="appointmentDate" required>
+
+      <label for="appointmentTime">Choose Time</label>
+      <input type="time" id="appointmentTime" name="appointmentTime" required>
+
+      <label for="service">Select Service</label>
+      <select id="service" name="service" required>
+        <option value="Haircut">Haircut</option>
+        <option value="Beard Trim">Beard Trim</option>
+        <option value="Shave">Shave</option>
+        <option value="Haircut + Beard Trim">Haircut + Beard Trim</option>
+      </select>
+
+      <button type="submit">Book Appointment</button>
+    </form>
+
+    <div id="confirmationMessage" class="hidden">
+      <h2>Your appointment has been booked successfully!</h2>
+      <p>We look forward to serving you on your selected time and date.</p>
+    </div>
+  </div>
+
+  <script src="./assets/js/appoint.js"></script>
+</body>
+</html>

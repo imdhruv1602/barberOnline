@@ -1,25 +1,4 @@
-/*-----------------------------------*\
-  #style.css
-\*-----------------------------------*/
-
-/**
- * copyright 2022 codewithsadee
- */
-
-
-
-
-
-/*-----------------------------------*\
-  #CUSTOM PROPERTY
-\*-----------------------------------*/
-
 :root {
-
-  /**
-   * colors
-   */
-
   --rich-black-fogra-39_50: hsla(0, 0%, 5%, 0.5);
   --rich-black-fogra-39: hsl(0, 0%, 5%);
   --indian-yellow_10: hsla(36, 61%, 58%, 0.1);
@@ -40,9 +19,7 @@
   --white: hsl(0, 0%, 100%);
   --jet: hsl(0, 0%, 21%);
 
-  /**
-   * typography
-   */
+
 
   --ff-oswald : 'Oswald', sans-serif;
   --ff-rubik: 'Rubik', sans-serif;
@@ -59,43 +36,23 @@
   --fw-600: 600;
   --fw-700: 700;
 
-  /**
-   * spacing
-   */
-
   --section-padding: 80px;
 
-  /**
-   * shadow
-   */
 
   --shadow-1: 10px 0 60px hsla(0, 0%, 15%, 0.07);
   --shadow-2: 10px 0 60px hsla(0, 0%, 15%, 0.1);
 
-  /**
-   * radius
-   */
 
   --radius-5: 5px;
   --radius-8: 8px;
 
-  /**
-   * transition
-   */
+
 
   --transition-1: 0.25s ease;
   --transition-2: 0.5s ease;
   --cubic-out: cubic-bezier(0.33, 0.85, 0.4, 0.96);
 
 }
-
-
-
-
-
-/*-----------------------------------*\
-  #RESET
-\*-----------------------------------*/
 
 *,
 *::before,
@@ -167,12 +124,6 @@ body {
 ::-webkit-scrollbar-thumb:hover { background-color: hsl(0, 0%, 70%); }
 
 
-
-
-
-/*-----------------------------------*\
-  #REUSED STYLE
-\*-----------------------------------*/
 
 .container { padding-inline: 15px; }
 
@@ -266,13 +217,6 @@ body {
   object-fit: cover;
 }
 
-
-
-
-
-/*-----------------------------------*\
-  #HEADER
-\*-----------------------------------*/
 
 .header-top-item,
 .header .btn { display: none; }
